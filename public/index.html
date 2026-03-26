@@ -1,1 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lisboa グルメ＆観光ガイド — 5月の旅 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f8f3eb;font-family:'Noto Sans JP','Hiragino Sans',sans-serif;color:#3a2a14}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#d4c4a8;border-radius:3px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 
+.hero{position:relative;padding:48px 24px 36px;background:linear-gradient(165deg,#2a1f14 0%,#4a3520 40%,#6b4a2a 100%);overflow:hidden}
+.hero-pattern{position:absolute;inset:0;opacity:.06;background-image:repeating-conic-gradient(#fff 0% 25%,transparent 0% 50%);background-size:24px 24px}
+.hero-glow{position:absolute;top:-40px;right:-20px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(196,165,100,.2),transparent 70%);animation:float 6s ease-in-out infinite}
+.hero-inner{position:relative;max-width:680px;margin:0 auto}
+.hero-badge{display:inline-block;padding:4px 14px;border-radius:20px;background:rgba(196,165,100,.2);border:1px solid rgba(196,165,100,.3);font-size:11px;font-weight:600;color:#c4a564;letter-spacing:2px;margin-bottom:16px}
+.hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,7vw,48px);font-weight:900;color:#fff;line-height:1.15;margin-bottom:10px;letter-spacing:-.5px}
+.hero h1 span{background:linear-gradient(90deg,#c4a564,#e8c97a,#c4a564);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite}
+.hero p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;max-width:440px}
+.hero p .sub{color:rgba(255,255,255,.35);font-size:11px}
+
+.tabs-wrap{position:sticky;top:0;z-index:100;background:rgba(248,243,235,.92);backdrop-filter:blur(12px);border-bottom:1px solid #ede4d4}
+.tabs{max-width:680px;margin:0 auto;padding:12px 16px;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{position:relative;padding:8px 16px;border-radius:24px;border:none;cursor:pointer;font-size:13px;font-weight:500;font-family:'Noto Sans JP',sans-serif;white-space:nowrap;transition:all .25s ease;background:rgba(139,90,43,.06);color:#8b6d4a}
+.tab-btn.active{font-weight:700;color:#fff}
+.tab-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#d94040;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;animation:pulse 2s ease-in-out infinite}
+
+.content{max-width:680px;margin:0 auto;padding:20px 16px 24px}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.section-emoji{font-size:28px}
+.section-title{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#3a2a14}
+.section-count{font-size:12px;color:#a09070}
+.cards{display:flex;flex-direction:column;gap:10px}
+
+.card{background:#fffbf5;border-radius:14px;padding:20px 22px;cursor:pointer;border:1px solid #ede4d4;transition:all .25s ease;box-shadow:0 2px 8px rgba(139,90,43,.04);animation:fadeUp .5s ease both}
+.card.fav{border:1.5px solid #e8a0a0}
+.card.open{box-shadow:0 8px 32px rgba(139,90,43,.1);transform:translateY(-2px)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.card-info{flex:1;min-width:0}
+.card-name-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.card-name{font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;color:#3a2a14}
+.price-tag{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(205,133,63,.12);color:#b8860b;letter-spacing:.5px}
+.card-area-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card-area{font-size:12px;color:#9a8a70;font-weight:500}
+.card-cat-tag{font-size:10px;padding:1px 8px;border-radius:10px;background:rgba(139,90,43,.08);color:#8b6d4a;font-weight:600}
+.card-actions{display:flex;align-items:center;gap:2px;flex-shrink:0}
+.heart-btn{background:none;border:none;cursor:pointer;font-size:20px;padding:4px;line-height:1;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.heart-btn.active{transform:scale(1.25)}
+.arrow{font-size:18px;transition:transform .25s ease;color:#c4a265}
+.arrow.open{transform:rotate(180deg)}
+.card-detail{margin-top:14px;animation:fadeUp .3s ease}
+.card-desc{font-size:13.5px;line-height:1.7;color:#5a4a34}
+.card-must{margin-top:12px;padding:10px 14px;border-radius:10px;border-left:3px solid}
+.card-must-label{font-size:12px;font-weight:700}
+.card-must-text{font-size:12.5px;color:#5a4a34;margin-left:4px}
+.card-tip{margin-top:8px;font-size:12px;color:#a09070;font-style:italic}
+
+.empty-fav{text-align:center;padding:60px 24px;animation:fadeUp .5s ease both}
+.empty-fav .icon{font-size:48px;margin-bottom:16px;opacity:.3}
+.empty-fav p{font-size:14px;color:#a09070;line-height:1.8}
+
+.may-section{max-width:680px;margin:0 auto;padding:0 16px 20px}
+.may-header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.may-title{font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;color:#3a2a14}
+.may-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.may-card{background:#fff;border-radius:12px;padding:14px 16px;border:1px solid #ede4d4;animation:fadeUp .5s ease both}
+.may-card .icon{font-size:20px;margin-bottom:6px}
+.may-card .title{font-size:11px;font-weight:700;color:#8b6d4a;margin-bottom:4px;letter-spacing:.5px}
+.may-card .text{font-size:12px;color:#6b5a44;line-height:1.6}
+
+.footer-wrap{max-width:680px;margin:0 auto;padding:0 16px 40px}
+.footer{padding:24px;background:linear-gradient(135deg,#2a1f14,#4a3520);border-radius:16px;text-align:center;color:rgba(255,255,255,.7);font-size:12px;line-height:1.8}
+.footer .flag{font-size:18px;margin-bottom:8px}
+.footer .boa{font-family:'Playfair Display',serif;font-size:16px;color:#c4a564;font-weight:600;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+const CATEGORIES = [
+  { id:"favorites", label:"❤️ お気に入り", emoji:"❤️" },
+  { id:"seafood", label:"🐙 シーフード", emoji:"🐙" },
+  { id:"cafe", label:"☕ カフェ＆スイーツ", emoji:"☕" },
+  { id:"street", label:"🥪 ストリートフード", emoji:"🥪" },
+  { id:"famous", label:"🏛️ 有名観光スポット", emoji:"🏛️" },
+  { id:"hidden", label:"💎 穴場スポット", emoji:"💎" },
+  { id:"art", label:"🎨 アートミュージアム", emoji:"🎨" },
+];
+
+const DATA = {
+  seafood:[
+    {id:"s1",name:"Cervejaria Ramiro",area:"マーティン・モニス",price:"€€€",desc:"リスボン最高峰のシーフード。カニ、エビ、マテ貝が絶品。締めのビーフサンドも名物。予約必須、開店30分前に並ぶのが吉。",tip:"1956年創業のビアレストランが起源",must:"タイガーシュリンプ＆マテ貝"},
+    {id:"s2",name:"Adega das Gravatas",area:"市街地郊外",price:"€€",desc:"壁一面にネクタイが飾られた名物店。リスボン最高のPolvo à Lagareiro（タコのオリーブオイル焼き）と評判。地元客で賑わう。",tip:"ネクタイ（gravatas）のコレクションが圧巻",must:"Polvo à Lagareiro"},
+    {id:"s3",name:"Frade dos Mares",area:"中心部からタクシー圏内",price:"€€",desc:"5,000件以上のレビューを誇る人気店。オーブン焼きタコが2人前のボリュームでリーズナブル。テーブルのボタンでスタッフを呼べる便利なシステム。",tip:"TripAdvisorで常に上位",must:"オーブン焼きタコ（ニンニク＆ポテト添え）"},
+    {id:"s4",name:"Sea Me Peixaria Moderna",area:"シアード",price:"€€€",desc:"ポルトガル×日本のフュージョンシーフード。Time Out Marketにも支店あり。寿司やマグロタルタルも楽しめる。",tip:"日本人にも馴染みやすい味",must:"マグロタルタル＆タコのホットドッグ（市場店）"},
+    {id:"s5",name:"Solar dos Presuntos",area:"サント・アンタォン通り",price:"€€€€",desc:"1974年創業。ロナウドやベッカムも訪れた名店。ロブスターライス、カタプラーナが名物。最初に出る生ハム＆チーズは有料なので注意。",tip:"壁の有名人の似顔絵コレクションが見どころ",must:"ロブスターライス（Arroz de Lavagante）"},
+    {id:"s6",name:"Ponto Final",area:"カシーリャス（対岸）",price:"€€",desc:"フェリーで渡った対岸のリバーサイドレストラン。リスボンのスカイラインを眺めながらその日の漁獲を楽しむ最高のロケーション。",tip:"3ヶ月前から予約推奨",must:"日替わりの焼き魚"},
+    {id:"s7",name:"A Cevicheria",area:"プリンシペ・レアル",price:"€€€",desc:"天井の巨大タコオブジェが目印。ペルー風セヴィーチェのクリエイティブなシーフード。ピスコサワーも絶品。",tip:"予約なしだと40分以上待つことも",must:"シグネチャーセヴィーチェ"},
+    {id:"s8",name:"DOIS ARCOS",area:"バイシャ（ロシオ駅近く）",price:"€€",desc:"日本語メニューあり。タコのリゾットが日本人の口に合う味付けで大人気。現金のみ。",tip:"日本人観光客の定番",must:"タコのリゾット"},
+    {id:"s9",name:"A Casa do Bacalhau",area:"アルファマ郊外",price:"€€",desc:"「バカリャウの家」の名の通り、干しダラ料理の専門店。貴族の邸宅を改装した石造り空間。コスパ抜群。",tip:"地元民が『わざわざ行くべき』と推す店",must:"バカリャウ料理（数十種類）"},
+    {id:"s10",name:"Eating Bear",area:"中心部",price:"€€",desc:"醤油ベースのタコサラダやごま油＆醤油のツナタルタルなど、日本人に刺さる味わいのモダンポルトガル料理。ワインカクテルも豊富。",tip:"日本の居酒屋感覚で楽しめる",must:"ツナのタルタル＆タコサラダ"},
+    {id:"s11",name:"Pica-Pau Restaurant",area:"リスボン市内",price:"€€",desc:"伝統的なポルトガル料理専門のにぎやかなレストラン。在住日本人からも高評価。",tip:"固定メニューでタコ料理は年中OK",must:"Polvo à Lagareiro"},
+    {id:"s12",name:"Corrupio",area:"カイス・ド・ソドレ",price:"€€€",desc:"カスタムタイルで覆われた美しい店内。紫さつまいものピューレと合わせたタコサラダが斬新。",tip:"小皿料理（ペティスコス）が充実",must:"タコサラダ＆紫芋ピューレ"},
+  ],
+  cafe:[
+    {id:"c1",name:"Pastéis de Belém",area:"ベレン地区",price:"€",desc:"1837年創業のエッグタルト元祖。秘伝レシピのパステル・デ・ナタは格別。朝8時前に行けば行列回避。",tip:"シナモンか粉砂糖をかけて",must:"パステル・デ・ナタ"},
+    {id:"c2",name:"Manteigaria",area:"シアード / バイロ・アルト",price:"€",desc:"地元民は実はこちら派。目の前で焼き上がるナタが見られるオープンキッチン。ベレンより空いている。",tip:"ベレンまで行く時間がなければここ",must:"焼きたてパステル・デ・ナタ"},
+    {id:"c3",name:"A Brasileira",area:"シアード",price:"€€",desc:"1905年創業の老舗。国民的詩人ペソアの銅像が店先に。地下にはレストランも併設。",tip:"テラス席でペソア像と記念撮影を",must:"ビカ（エスプレッソ）"},
+    {id:"c4",name:"Confeitaria Nacional",area:"フィゲイラ広場",price:"€€",desc:"1829年創業、リスボン最古級の菓子店。19世紀のインテリアが再現されたエレガントな空間。伝統菓子ボーロ・レイの発祥の店。",tip:"クリスマス菓子だけでなく通年のスイーツも充実",must:"ボーロ・レイ＆チョコレートムース"},
+    {id:"c5",name:"SIMPLI COFFEE",area:"マルケス・デ・ポンパル周辺",price:"€€",desc:"自家焙煎スペシャルティコーヒーの専門店。バリスタが淹れるコーヒーとフォトジェニックなブランチが楽しめる。",tip:"市内に3店舗。Braamcamp通り店が穴場",must:"カフェモカ＆ブランチ"},
+    {id:"c6",name:"Seagull Method",area:"リスボン市内",price:"€€",desc:"朝食ブランチの人気店。予約不可なので早めに行くのがベスト。",tip:"駐在者・旅行者両方に大人気",must:"卵料理＆サワードウトースト"},
+  ],
+  street:[
+    {id:"st1",name:"ビファーナ (Bifana)",area:"どこでも",price:"€3〜4",desc:"白ワイン・ニンニク・パプリカでマリネした豚肉のサンドイッチ。リスボンのストリートフードの王様。",tip:"Bifanas de Afonso（アルファマ地区）が絶品",must:"マスタード＆チリオイルで"},
+    {id:"st2",name:"プレゴ (Prego)",area:"どこでも",price:"€3〜5",desc:"ビファーナの牛肉版。ニンニク風味のグリルビーフサンド。",tip:"Rui dos Pregosが有名",must:"ビール（Imperial）と一緒に"},
+    {id:"st3",name:"パステイス・デ・バカリャウ",area:"どこでも",price:"€1〜2",desc:"塩ダラ・ポテト・コリアンダーの揚げコロッケ。揚げたてに出会えたらラッキー。",tip:"A Tendinha do Rossio（1840年創業）",must:"ビールのお供に"},
+    {id:"st4",name:"シャムーサス (Chamuças)",area:"地下鉄駅周辺",price:"€1〜2",desc:"旧植民地ゴアやモザンビーク由来のポルトガル版サモサ。スパイシーチキン入りが定番。",tip:"行列のある屋台が美味しいサイン",must:"チキン味"},
+    {id:"st5",name:"ジンジーニャ (Ginjinha)",area:"ロシオ広場周辺",price:"€1〜2",desc:"さくらんぼのリキュール。チョコカップで飲むのがリスボン流。",tip:"A Ginjinhaがロシオ広場の有名店",must:"チョコカップで一杯"},
+    {id:"st6",name:"ショリソ・ア・ボンベイロ",area:"レストラン",price:"€5〜8",desc:"テーブルで炎を上げてグリルする「消防士のソーセージ」。外カリ中ジューシー。",tip:"写真映え抜群",must:"パンと一緒に"},
+    {id:"st7",name:"パォン・コン・ショリソ",area:"パン屋",price:"€2〜3",desc:"ショリソソーセージを練り込んだスモーキーなパン。テラコッタオーブン焼きが最高。",tip:"地元パン屋で購入がベスト",must:"焼きたてを"},
+    {id:"st8",name:"グリルドサーディン",area:"アルファマ地区",price:"€5〜8",desc:"6月のサント・アントニオ祭に街中に漂う炭火焼きイワシの香り。5月でもレストランで食べられる。",tip:"コーンブレッドとレモンでシンプルに",must:"ビファーナと並ぶ夏の風物詩"},
+  ],
+  famous:[
+    {id:"f1",name:"ジェロニモス修道院",area:"ベレン地区",price:"€10",desc:"マヌエル様式の壮麗な世界遺産。大航海時代の栄華を伝える圧巻の建築。回廊の彫刻が見事。",tip:"5月は混雑するので朝一番で",must:"回廊の石彫刻"},
+    {id:"f2",name:"ベレンの塔",area:"ベレン地区",price:"€8",desc:"テージョ川に浮かぶ16世紀の要塞。大航海時代の象徴。内部にも入れる。",tip:"ジェロニモス修道院とセットで",must:"テージョ川越しの外観"},
+    {id:"f3",name:"サン・ジョルジェ城",area:"アルファマ地区",price:"€10",desc:"紀元前から続くリスボンの城塞。旧市街を一望できる絶景スポット。夕暮れ時がベスト。",tip:"午前中が空いている",must:"展望台からの360度パノラマ"},
+    {id:"f4",name:"サンタ・ジュスタのエレベーター",area:"バイシャ地区",price:"€5",desc:"1902年完成のネオ・ゴシック様式の鉄製エレベーター。展望台からリスボンを一望。",tip:"午前中がおすすめ",must:"展望台からの眺め"},
+    {id:"f5",name:"トラム28番",area:"全市",price:"€3",desc:"アルファマ、シアードなどを走る有名な路面電車。車窓からの風景が最高。",tip:"朝早く始発駅から乗ると座れる",must:"車窓からのアルファマの街並み"},
+    {id:"f6",name:"コメルシオ広場",area:"バイシャ地区",price:"無料",desc:"テージョ川に面した壮大な広場。凱旋門をくぐってアウグスタ通りへ散策。",tip:"夕日の時間帯が美しい",must:"凱旋門の上からの眺望"},
+    {id:"f7",name:"Time Out Market",area:"カイス・ド・ソドレ",price:"様々",desc:"トップシェフが集結するフードホール。リスボンの食を一度に体験できる。",tip:"11時か15時以降が空いている",must:"各店のシグネチャーを食べ比べ"},
+    {id:"f8",name:"発見のモニュメント",area:"ベレン地区",price:"€6",desc:"大航海時代の航海者たちの彫刻が並ぶ記念碑。上に登れば素晴らしいパノラマ。",tip:"ベレン地区散策の一部として",must:"足元の世界地図モザイク"},
+  ],
+  hidden:[
+    {id:"h1",name:"Casa do Alentejo",area:"サント・アンタォン通り",price:"€€",desc:"目立たない入口を押すと突然ムーア風の宮殿が出現。タイル、アーチ、中庭が広がる秘密の空間。レストランもあり。",tip:"入口が本当にわかりにくい",must:"中庭のアズレージョ"},
+    {id:"h2",name:"Palácio da Ajuda",area:"ベレン郊外",price:"€5",desc:"シントラの宮殿に匹敵する豪華なネオクラシック宮殿。観光客が少なく静かに見学可能。",tip:"シントラの混雑を避けたい人に最適",must:"豪華な王室の部屋"},
+    {id:"h3",name:"Miradouro da Senhora do Monte",area:"グラサ地区",price:"無料",desc:"リスボン最高の展望台。カラフルな屋根、橋、テージョ川の大パノラマ。",tip:"サンセットの時間が最高",must:"ワインを持って夕日鑑賞"},
+    {id:"h4",name:"Marvila地区",area:"東リスボン",price:"無料",desc:"旧倉庫街がアートスタジオ、ポップアップバー、レストランに変貌した新興クリエイティブ地区。",tip:"週末が特に活気あり",must:"8 Marvilaのアートシーン"},
+    {id:"h5",name:"LX Factory",area:"アルカンタラ",price:"無料",desc:"旧工場を改装したクリエイティブ複合施設。レストラン、ストリートアート、個性派ショップが集結。",tip:"25 de Abril橋の真下",must:"Ler Devagar（巨大な本屋）"},
+    {id:"h6",name:"Feira da Ladra（泥棒市）",area:"アルファマ",price:"無料",desc:"毎週火曜＆土曜のリスボン最古の蚤の市。ビンテージ品、アズレージョタイル、掘り出し物が見つかる。",tip:"朝早くがバーゲンのチャンス",must:"ビンテージのアズレージョタイル"},
+    {id:"h7",name:"トラム24番",area:"全市",price:"€3",desc:"28番と同じ黄色いレトロトラムだが、ずっと空いていて座れる穴場ルート。",tip:"28番の混雑に疲れたら",must:"のんびり車窓観光"},
+    {id:"h8",name:"Pavilhão Chinês",area:"プリンシペ・レアル",price:"€€",desc:"おもちゃ、ミニチュア、骨董品で埋め尽くされた不思議なバー。ビリヤード台もあり。",tip:"カクテルを飲みながら店内探検",must:"カクテル片手に宝探し気分"},
+    {id:"h9",name:"Estrela Basilica（屋上）",area:"エストレラ地区",price:"少額",desc:"18世紀の大聖堂。屋上に登ると壮大なドームと鐘楼を間近で見られ、街の絶景も。",tip:"教会自体は無料、屋上が有料",must:"ドームを間近で"},
+  ],
+  art:[
+    {id:"a1",name:"Calouste Gulbenkian / CAM",area:"サルダーニャ",price:"€10",desc:"レンブラント〜古代ギリシャ・ローマまで、世界屈指のコレクション。2024年に隈研吾設計の新棟CAM（近現代美術）がオープン。",tip:"⚠️ 本館は2026年7月まで改修中。CAMと庭園は営業中",must:"CAMの近現代アート＆庭園散策"},
+    {id:"a2",name:"Museu Nacional de Arte Antiga",area:"サントス",price:"€6",desc:"ポルトガル国立美術館。ボッシュ、デューラーの作品のほか、日本人を描いた南蛮屏風も収蔵。",tip:"⚠️ ヨーロッパ絵画ギャラリーは2026年5月まで改修予定",must:"南蛮屏風＆聖ヴィンセント祭壇画"},
+    {id:"a3",name:"MAAT",area:"ベレン地区",price:"€9",desc:"テージョ川沿いの未来的な建物。アート×建築×テクノロジーをテーマにした展示。屋上からの夕日が絶景。",tip:"1日の最後に訪れてサンセットを",must:"屋上テラスからのパノラマ"},
+    {id:"a4",name:"MAC/CCB（現代美術館）",area:"ベレン地区",price:"無料（常設展）",desc:"ウォーホル、ダリ、ピカソなど20〜21世紀の主要美術運動をカバー。常設展は無料。",tip:"ジェロニモス修道院と同日に回れる",must:"ポップアート＆シュルレアリスム"},
+    {id:"a5",name:"MACAM",area:"アルカンタラ・ベレン",price:"€15",desc:"2025年3月オープンのリスボン最新美術館。600点以上のコレクション。ヨーロッパ初のミュージアムホテルでもある。",tip:"4つのギャラリー＋カフェ＆レストラン併設",must:"ポルトガル美術ギャラリー"},
+    {id:"a6",name:"国立アズレージョ美術館",area:"東リスボン",price:"€5",desc:"ポルトガル独自のタイル芸術「アズレージョ」の500年の歴史を展示。1755年大地震前のリスボンを描いた全長35mのタイル画は圧巻。",tip:"⚠️ 2025年11月から改修中、2026年後半再開予定",must:"リスボンパノラマタイル画"},
+    {id:"a7",name:"Museu do Oriente",area:"アルカンタラ",price:"€6",desc:"東洋美術のコレクション。日本のポップカルチャー展なども開催。アジア好きにはたまらない。",tip:"金曜は18時〜22時無料",must:"日本の南蛮美術＆アジア文化"},
+  ],
+};
+
+const MAY_TIPS = [
+  {icon:"🌤️",title:"5月の天気",text:"平均20〜25°C。晴れの日が多いが朝晩は涼しい。薄手のジャケット必携。"},
+  {icon:"🎉",title:"5月のイベント",text:"ArcoLisboa（現代アートフェア）、LisbonbyDesign、各地区の祭りが開催。"},
+  {icon:"💡",title:"混雑回避",text:"6月のサント・アントニオ祭前で、ハイシーズンより少し空いている狙い目の時期。"},
+  {icon:"🚇",title:"移動のコツ",text:"Viva Viagem カード（メトロ・トラム・バス共通）が便利。Uber/Boltも安い。"},
+];
+
+const ACCENTS = {
+  seafood:"#c46b3a",cafe:"#8b6d4a",street:"#b8860b",
+  famous:"#6b7b3a",hidden:"#7a5c8a",art:"#c44a6a",favorites:"#d94040"
+};
+
+// Build flat list
+const ALL_ITEMS = [];
+for (const [cat, items] of Object.entries(DATA)) {
+  for (const item of items) ALL_ITEMS.push({...item, category: cat});
+}
+
+// State
+let activeTab = "seafood";
+let favIds = new Set();
+let openCards = new Set();
+
+function getItems() {
+  if (activeTab === "favorites") return ALL_ITEMS.filter(i => favIds.has(i.id));
+  return DATA[activeTab] || [];
+}
+
+function getCat(id) { return CATEGORIES.find(c => c.id === id); }
+
+function render() {
+  const items = getItems();
+  const accent = ACCENTS[activeTab];
+  const isFav = activeTab === "favorites";
+  const cat = getCat(activeTab);
+
+  let html = '';
+
+  // Hero
+  html += `
+  <div class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">MAIO 2026 · 5月の旅</div>
+      <h1>Lisboa<br><span>グルメ＆観光ガイド</span></h1>
+      <p>日本人旅行者のためのリスボン完全攻略。<br>シーフード、穴場、アート、ストリートフードまで。<br><span class="sub">Lisboa = ポルトガル語で「リスボン」。語源は「安全な港」。</span></p>
+    </div>
+  </div>`;
+
+  // Tabs
+  html += `<div class="tabs-wrap"><div class="tabs">`;
+  for (const c of CATEGORIES) {
+    const isActive = activeTab === c.id;
+    const bg = isActive ? `linear-gradient(135deg,${ACCENTS[c.id]},${ACCENTS[c.id]}dd)` : '';
+    const shadow = isActive ? `0 4px 16px ${ACCENTS[c.id]}30` : '';
+    let badge = '';
+    if (c.id === 'favorites' && favIds.size > 0) {
+      badge = `<span class="tab-badge">${favIds.size}</span>`;
+    }
+    html += `<button class="tab-btn${isActive?' active':''}" data-tab="${c.id}" style="background:${bg||'rgba(139,90,43,.06)'};color:${isActive?'#fff':'#8b6d4a'};box-shadow:${shadow||'none'}">${c.label}${badge}</button>`;
+  }
+  html += `</div></div>`;
+
+  // Content
+  html += `<div class="content">`;
+  html += `<div class="section-header"><span class="section-emoji">${cat.emoji}</span><div><div class="section-title">${cat.label.replace(/^[^\s]+\s/,'')}</div><div class="section-count">${isFav?(items.length===0?'ハートをタップしてお気に入りを追加':`${items.length}件のお気に入り`):`${items.length}件のおすすめ`}</div></div></div>`;
+
+  if (isFav && items.length === 0) {
+    html += `<div class="empty-fav"><div class="icon">🤍</div><p>まだお気に入りがありません。<br>各カードの 🤍 をタップして<br>行きたい場所を保存しましょう！</p></div>`;
+  } else {
+    html += `<div class="cards">`;
+    items.forEach((item, i) => {
+      const isOpen = openCards.has(item.id);
+      const isFavItem = favIds.has(item.id);
+      const itemAccent = isFav ? (ACCENTS[item.category]||'#d94040') : accent;
+      const catLabel = isFav ? (getCat(item.category)?.label || '') : '';
+
+      html += `<div class="card${isFavItem?' fav':''}${isOpen?' open':''}" data-id="${item.id}" style="animation-delay:${i*60}ms">`;
+      html += `<div class="card-top"><div class="card-info">`;
+      html += `<div class="card-name-row"><span class="card-name">${item.name}</span><span class="price-tag">${item.price}</span></div>`;
+      html += `<div class="card-area-row"><span class="card-area">📍 ${item.area}</span>`;
+      if (catLabel) html += `<span class="card-cat-tag">${catLabel}</span>`;
+      html += `</div></div>`;
+      html += `<div class="card-actions"><button class="heart-btn${isFavItem?' active':''}" data-heart="${item.id}">${isFavItem?'❤️':'🤍'}</button><span class="arrow${isOpen?' open':''}">▾</span></div>`;
+      html += `</div>`;
+
+      if (isOpen) {
+        html += `<div class="card-detail"><p class="card-desc">${item.desc}</p>`;
+        if (item.must) {
+          html += `<div class="card-must" style="background:linear-gradient(135deg,${itemAccent}10,${itemAccent}08);border-left-color:${itemAccent}"><span class="card-must-label" style="color:${itemAccent}">🍽️ マスト：</span><span class="card-must-text">${item.must}</span></div>`;
+        }
+        if (item.tip) {
+          html += `<div class="card-tip">💡 ${item.tip}</div>`;
+        }
+        html += `</div>`;
+      }
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+  html += `</div>`;
+
+  // May Tips
+  html += `<div class="may-section"><div class="may-header"><span style="font-size:22px">🗓️</span><h3 class="may-title">5月の旅行情報</h3></div><div class="may-grid">`;
+  MAY_TIPS.forEach((t, i) => {
+    html += `<div class="may-card" style="animation-delay:${i*80}ms"><div class="icon">${t.icon}</div><div class="title">${t.title}</div><div class="text">${t.text}</div></div>`;
+  });
+  html += `</div></div>`;
+
+  // Footer
+  html += `<div class="footer-wrap"><div class="footer"><div class="flag">🇵🇹</div><div class="boa">Boa Viagem!</div>リスボン 5月旅行ガイド 2026<br>※ 価格・営業時間は変更される場合があります<br>※ 人気店は事前予約をおすすめします</div></div>`;
+
+  document.getElementById('app').innerHTML = html;
+  bindEvents();
+}
+
+function bindEvents() {
+  // Tab clicks
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeTab = btn.dataset.tab;
+      openCards.clear();
+      render();
+    });
+  });
+
+  // Card clicks (toggle open)
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.heart-btn')) return;
+      const id = card.dataset.id;
+      if (openCards.has(id)) openCards.delete(id); else openCards.add(id);
+      render();
+    });
+  });
+
+  // Heart clicks
+  document.querySelectorAll('.heart-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = btn.dataset.heart;
+      if (favIds.has(id)) favIds.delete(id); else favIds.add(id);
+      render();
+    });
+  });
+}
+
+render();
+</script>
+</body>
+</html>
